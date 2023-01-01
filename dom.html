@@ -1,0 +1,246 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>index</title>
+</head>
+<body>
+
+	<div class="main">
+		
+		<section class="result_section">
+			<h1>Output</h1>
+			<p>Programmer memes</p>
+			<div class="memeContainer">
+
+			</div>
+			<p>Tell me something funny!</p>
+			<div class="jokeContainer">
+				
+			</div>
+			<p>Give some wisdom...</p>
+			<div class="wisdomContainer">
+				
+			</div>
+			<p>I want a riddle!</p>
+			<div class="riddleContainer">
+				
+			</div>
+		</section>
+
+		<section class="actions_section">
+			<h1>Actions</h1>
+			<button onclick="btnMeme()">Show a Meme</button>
+			<button onclick="btnJoke()">Tell me a Joke</button>
+			<button onclick="btnQuote()">Random Quote</button>
+			<button onclick="btnRiddle()">Riddle me</button>
+			<button onclick="revealTheAnswer()" class="reveal-the-answer">Reveal Riddle Answer</button>
+		</section>
+
+	</div>
+
+	<script type="text/javascript">
+
+// Container Datas =======================================================
+		const memes = ['1.jpg', '2.jpg', '3.jpg', '4.png'];
+		const jokes = ['Maybe i am not me!', 'You have to change your name!', 'You are not my child anymore!'];
+		const quotes = [
+			{
+				author: 'Ali',
+				quote: 'The man is a man!'
+			},
+
+			{
+				author: 'Odam',
+				quote: 'Get what is yours!'
+			},
+
+			{
+				author: 'Ulughbek',
+				quote: 'Never give up!'
+			}
+		];
+		const riddles = [
+			{
+				answer: 'Water',
+				riddle: 'You drink it when you are thirsty, what is it?'
+			},
+			{
+				answer: 'Food',
+				riddle: 'You eat it when you are hungry, what is it?'
+			},
+			{
+				answer: 'Life',
+				riddle: 'What is between birth and death?'
+			}
+		];
+
+// All Cintainers ========================================================
+		const memeContainer = document.querySelector('.memeContainer');
+		const jokeContainer = document.querySelector('.jokeContainer');
+		const wisdomContainer = document.querySelector('.wisdomContainer');
+		const riddleContainer = document.querySelector('.riddleContainer');
+
+// Clear Function =========================================
+		function clearAll() {
+			const memeContainer = document.querySelector('.memeContainer');
+			const jokeContainer = document.querySelector('.jokeContainer');
+			const wisdomContainer = document.querySelector('.wisdomContainer');
+			const riddleContainer = document.querySelector('.riddleContainer');
+
+			memeContainer.innerHTML = '';
+			jokeContainer.innerHTML = '';
+			wisdomContainer.innerHTML = '';
+			riddleContainer.innerHTML = '';
+		}
+
+// All Events ===============================================	
+		const btnMeme = function() {
+			const newElement = document.createElement('img');
+			newElement.setAttribute('src', memes[Math.floor(Math.random() * memes.length)]);
+
+			clearAll();
+
+			memeContainer.appendChild(newElement);
+		}
+
+
+		
+		const btnJoke = function() {
+			const newElement = document.createElement('p');
+			newElement.textContent = jokes[Math.floor(Math.random() * jokes.length)];
+
+			clearAll();
+
+			jokeContainer.appendChild(newElement);
+		}
+
+
+
+		const btnQuote = function() {
+			let randomNumber = Math.floor(Math.random() * quotes.length)
+
+			const author = document.createElement('p');
+			const quote = document.createElement('p');
+
+			author.textContent = '-' + quotes[randomNumber].author;
+			quote.textContent = quotes[randomNumber].quote;
+
+			clearAll();
+
+			wisdomContainer.appendChild(quote);
+			wisdomContainer.appendChild(author);
+		}
+
+
+
+		const btnRiddle = function() {
+			let randomNumber = Math.floor(Math.random() * riddles.length)
+			const newElement = document.createElement('p');
+			const riddleAnswer = document.createElement('p');
+			riddleAnswer.setAttribute('class', 'riddle-answer');
+
+			const {answer, riddle} = riddles[randomNumber];
+			newElement.textContent = riddle;
+			riddleAnswer.textContent = 'The answer is: ' + answer;
+			riddleAnswer.style.color = 'green';
+			riddleAnswer.hidden = true;
+
+			clearAll();
+
+			riddleContainer.appendChild(newElement);
+			riddleContainer.appendChild(riddleAnswer);
+		}
+
+		const revealTheAnswer = function() {
+			const riddleAnswer = document.querySelector('.riddle-answer') || false;
+
+			if (riddleAnswer.hidden) {
+				riddleAnswer.hidden = false;
+			} else if (riddleAnswer.hidden === false && riddleAnswer) {
+				window.alert('The answer is already revealed!!!');
+			} else {
+				alert('There is no answer to reveal!!!');
+			}
+		}
+
+	</script>
+
+</body>
+</html>
+
+<style type="text/css">
+
+	body {
+		background-color: black;
+	}
+	
+	*, *:before, *:after {
+		box-sizing: border-box;
+		list-style: none;
+		color: white;
+		font-family: monospace;
+		font-size: 20px;
+	}
+
+	.main {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.result_section .jokeContainer p, .result_section .wisdomContainer p, .result_section .riddleContainer p {
+		color: red;
+	}
+
+	.result_section img {
+		width: 300px;
+	}
+
+	.actions_section {
+		width: 400px;
+		min-height: 100vh;
+		border-left: 1px solid white;
+		padding-left: 40px;
+	}
+
+	.actions_section button {
+		display: block;
+		background-color: black;
+		border-color: white;
+		width: 200px;
+		padding: 10px;
+		margin-bottom: 20px;
+		cursor: pointer;	
+		border-radius: 10px;
+	}
+
+	.actions_section button:hover {
+		background-color: white;
+		color: black;
+	}
+
+	.actions_section p {
+		cursor: pointer;
+		font-size: 15px;
+		display: block;
+		width: 200px;
+		text-align: center;
+		text-decoration: underline;
+		word-spacing: -4px;
+	}
+
+	.reveal-the-answer {
+		padding: 0px;
+		border: none;
+		font-size: 15px;
+		text-decoration: underline;
+		background-color: black;
+		color: white;
+	}
+
+	.actions_section button:hover:last-child {
+		background-color: lightblue;
+		color: black;
+	}
+
+</style>
